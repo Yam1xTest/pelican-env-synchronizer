@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+data:
+{{- $content := .Files.Get "/etc/environment" }}
+{{- range $line := splitList "\n" $content }}
+  {{ $parts := split "=" $line }}
+  {{- $key := printf "%s" $parts._0  }}
+  {{- $value := printf "%s" $parts._1 }}
+  {{- printf "%s:" $key }} {{ quote $value }}
+{{- end }}
