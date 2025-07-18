@@ -41,4 +41,7 @@ spec:
                     value: {{ .Release.Namespace }}
                   - name: PATH_TO_HELMFILE
                     value: {{ .Values.extraConfigMapEnvVars.PATH_TO_HELMFILE }}
+              envFrom:
+              - configMapRef:
+                  name: env-configmap
               imagePullPolicy: {{ .Values.image.pullPolicy }}
