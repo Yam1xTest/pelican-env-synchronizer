@@ -6,6 +6,8 @@ if (os.getenv("SYNCHRONIZER_ENABLED") == "True"):
     # with check = True subprocess.run will throw error and pod will be completed with error
     subprocess.run(['git', 'clone', f'https://github.com/{os.getenv("ENV_REPOSITORY")}.git'], check = True)
 
+    subprocess.run(['env'], check = True)
+
     subprocess.run(['helmfile', 'cache', 'cleanup'], check = True)
 
     subprocess.run(['helmfile', '--environment', f'{os.getenv("NAMESPACE")}', '--namespace', f'{os.getenv("NAMESPACE")}', '-f', f'{os.getenv("PATH_TO_HELMFILE")}', 'apply'], check = True)
