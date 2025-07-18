@@ -4,10 +4,4 @@ metadata:
   name: {{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
 data:
-  {{- $content := .Files.Get "resources/etc/environment" }}
-  {{- range $line := splitList "\n" $content }}
-    {{ $parts := split "=" $line }}
-    {{- $key := printf "%s" $parts._0  }}
-    {{- $value := printf "%s" $parts._1 }}
-    {{- printf "%s:" $key }} {{ quote $value }}
-  {{- end }}
+  {{ .Values.envVars | indent 2 }}
